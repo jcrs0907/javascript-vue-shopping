@@ -1,4 +1,4 @@
-# javascript-vue-shopping
+# javascript-vue-shopping-mall
 
 https://github.com/jeonghwan-kim/lecture-vue
 
