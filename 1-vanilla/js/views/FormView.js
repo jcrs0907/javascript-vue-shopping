@@ -20,22 +20,25 @@ FormView.showResetBtn = function (show = true) {
 FormView.bindEvents = function () {
   this.on('submit', e => e.preventDefault())
   this.inputEl.addEventListener('keyup', e => this.onKeyup(e))
-  //resetEl을 클릭했을 때 적혀있는 내용을 모두 지우는 onClickReset 바인딩
-  this.resetEl.addEventListener('click',e => this.onClickReset())
+  this.resetEl.addEventListener('click', e => this.onClickReset())
 }
 
 FormView.onKeyup = function (e) {
   const enter = 13
   this.showResetBtn(this.inputEl.value.length)
-  if(!this.inputEl.value.length) this.emit('@reset');
+  if (!this.inputEl.value.length) this.emit('@reset')
   if (e.keyCode !== enter) return
   this.emit('@submit', { input: this.inputEl.value })
 }
 
-FormView.onClickReset = function(){
-  //controller에게 @reset 전달
-  this.emit('@reset');
-  this.showResetBtn(false);
+FormView.onClickReset = function () {
+  this.emit('@reset')
+  this.showResetBtn(false)
+}
+
+FormView.setValue = function (value = '') {
+  this.inputEl.value = value
+  this.showResetBtn(this.inputEl.value.length)
 }
 
 export default FormView
