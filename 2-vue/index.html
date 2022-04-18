@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>MVC with Vanilla.JS</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h2 class="container">검색</h2>
+    </header>
+
+    <div class="container">
+      <!-- 디렉티브란? 찾아보기 -->
+      <!-- v-on dom에서 발생하는 이벤트를 리슨하는 역할 -->
+      <form v-on:submit.prevent="onSubmit">
+        <!-- v-model: 양방향 바인딩 지원 -->
+        <input type="text" v-model="query" placeholder="검색어를 입력하세요" autofocus>
+        <button v-show="query.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
+      </form>
+        <!-- vue에서는 메세지 출력 시 {{}}안에 출력 -->
+        <!-- {{msg}} -->
+        <!-- form에서 submit이 실행되었을 경우 -->
+        <div class="content">
+          <div v-if="submitted">
+            <!-- searchResult가 있는 경우 -->
+            <!-- todo: v-if 여러 개일 경우 알아보기 어려워 보이는데 다르게 구현하는지 알아보기 -->
+            <div v-if="searchResult.length">
+              <ul>
+                <li v-for="item in searchResult">
+                  <!-- v-bind: attribute의 값을 바인딩 -->
+                  <img v-bind:src="item.image"> {{item.name}}
+                </li>
+              </ul>
+            </div>
+            <div v-else>
+              {{query}}검색어로 찾을 수 없습니다.
+            </div>
+          </div>
+          <div v-else>
+              <ul class="tabs">
+                <!-- v-bind에 클래스명 바인딩, 조건 설정 가능 -->
+                <!-- click 이벤트에 현재 tab 이름을 매개변수로 넘긴다 -->
+                <li v-for="tab in tabs" v-on:click="onClickTab(tab)" v-bind:class="{active: tab === selectedTab}">
+                  {{tab}}
+                </li>
+              </ul>
+              <div v-if="selectedTab == tabs[0]">
+                <div v-if="keywords.length">
+                  <ul class="list">
+                    <!-- v-for 두번째 매개변수 index -->
+                    <li v-for="(item, index) in keywords" 
+                        v-on:click="onClickKeyword(item.keyword)">
+                      <span class="number">{{index + 1}}</span> {{item.keyword}}
+                    </li>
+                  </ul>
+                </div>
+                <div v-else>
+                  추천 검색어가 없습니다
+                </div>
+              </div>
+              <div v-else>
+                최근검색어 목록
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+  <!-- vue 2.6.0 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
