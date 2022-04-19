@@ -1,5 +1,6 @@
 import SearchModel from './models/SearchModel.js';
 import KeywordModel from './models/KeywordModel.js'
+import HistoryModel from './models/HistoryModel.js'
 
 
 new Vue({
@@ -12,6 +13,7 @@ new Vue({
     selectedTab:'',
     //검색 결과 구현
     searchResult:[],
+    history:[],
     keywords: [],
   },
   created(){//vue lifeCycle 뷰 인스턴스가 생성될 때
@@ -19,6 +21,7 @@ new Vue({
     //중복 제거를 위해 created()안에 추가
       this.selectedTab = this.tabs[0]// 0번 index는 추천검색어   
       this.fetchKeyword()//추천검색어 데이터 가져오기   
+      this.fetchHistory()//최근검색어 데이터 가져오기
   },
   methods:{
     onSubmit(e){
@@ -39,16 +42,27 @@ new Vue({
       this.query = keyword;
       this.search()
     },
+    onClickRemoveHistory(keyword){
+      HistoryModel.remove(keyword)
+      this.fetchHistory()
+    },
     fetchKeyword() {
       KeywordModel.list().then(data => {
         this.keywords = data
       })
     },
-    search(){
-      SearchModel.list().then(data =>{
+    fetchHistory(){
+      HistoryModel.list().then(data =>{
+        this.history = data
+      })
+    },
+    search() {
+      SearchModel.list().then(data => {
         this.submitted = true
         this.searchResult = data
-      });
+      })
+      HistoryModel.add(this.query)
+      this.fetchHistory()
     },
     resetForm() {
       this.query = ''

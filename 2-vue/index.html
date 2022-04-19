@@ -19,6 +19,7 @@
       <form v-on:submit.prevent="onSubmit">
         <!-- v-model: 양방향 바인딩 지원 -->
         <input type="text" v-model="query" placeholder="검색어를 입력하세요" autofocus>
+        <!-- data(query라는 변수)에 따른 DOM처리를 자동으로 vue에서 해줌 -->
         <button v-show="query.length" v-on:click="onReset" type="reset" class="btn-reset"></button>
       </form>
         <!-- vue에서는 메세지 출력 시 {{}}안에 출력 -->
@@ -63,7 +64,19 @@
                 </div>
               </div>
               <div v-else>
-                최근검색어 목록
+                <div v-if="history.length">
+                  <ul class="list">
+                    <!-- 기능이 keyword와 같아서 동일한 함수 사용 -->
+                    <li v-for="item in history" v-on:click="onClickKeyword(item.keyword)">
+                      {{item.keyword}}
+                      <span class="date">{{item.date}}</span>
+                      <button class="btn-remove" v-on:click.stop="onClickRemoveHistory(item.keyword)"></button>
+                    </li>
+                  </ul>
+                </div>
+                <div v-else>
+                  최근 검색어가 없습니다.
+                </div>
               </div>
           </div>
         </div>
