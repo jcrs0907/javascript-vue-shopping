@@ -88,4 +88,10 @@ npm run dev
 ![image](https://user-images.githubusercontent.com/64838115/165011040-3813f5e6-3636-41ee-9cb2-dcb2f828e77d.png)
 ![image](https://user-images.githubusercontent.com/64838115/165010964-052ce0aa-5cf6-4435-bfe7-bf8c583d78e3.png)
 
+## 블로그 포스팅
+[JavaScript MVC 구현해보기](https://velog.io/@jcrs0907/JS-JavaScript-MVC-%EA%B5%AC%ED%98%84%ED%95%B4%EB%B3%B4%EA%B8%B0)
+[Vue.js 컴포넌트](https://velog.io/@jcrs0907/vue.js-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8single-component#formcomponentvue)
+
+
+
 
